@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  install-with-cache-and-build:
+  build_and_preview:
     runs-on: ubuntu-latest
 
     steps:

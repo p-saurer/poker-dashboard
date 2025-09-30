@@ -4,8 +4,14 @@
 		"jsx": "preserve",
 		"jsxImportSource": "solid-js",
 		"lib": ["DOM", "DOM.Iterable", "ES2022"],
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
 
 		// Modules
+		"module": "ES2022",
+		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"isolatedModules": true,
 
