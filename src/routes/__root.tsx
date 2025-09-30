@@ -1,6 +1,6 @@
 import { createRootRoute, Link, Outlet } from "@tanstack/solid-router";
 import { TanStackRouterDevtools } from "@tanstack/solid-router-devtools";
-import { Navbar } from "../ui/navbar";
+import { Navbar } from "@/ui/navbar";
 
 export const Route = createRootRoute({
 	component: RootComponent,
