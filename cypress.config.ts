@@ -1,8 +1,9 @@
+/// <reference types="node" />
 import { defineConfig } from "cypress";
 
 export default defineConfig({
 	e2e: {
-		baseUrl: "http://localhost:3000/",
+		baseUrl: process.env.CYPRESS_BASE_URL,
 		specPattern: [
 			"src/**/__tests__/*.test.integration.ts",
 			"cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",

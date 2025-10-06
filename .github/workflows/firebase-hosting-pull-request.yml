@@ -53,4 +53,6 @@ jobs:
 
       # Run Cypress tests using that URL
       - name: Run Cypress tests
-        run: npx cypress run --env baseUrl=${{ steps.firebase_preview.outputs.details_url }}
+        run: npx cypress run
+        env:
+          CYPRESS_BASE_URL: ${{ steps.firebase_preview.outputs.details_url }}
