@@ -7,10 +7,12 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
+
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,8 +34,25 @@ jobs:
       - name: Build app
         run: pnpm build
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      # Deploy preview to Firebase Hosting
+      - name: Deploy to Firebase preview channel
+        id: firebase_preview
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CDV_POKER }}
           projectId: cdv-poker
+          expires: 7d
+
+      # Wait until preview URL is available (helps avoid race conditions)
+      - name: Wait for preview to be ready
+        run: |
+          echo "Waiting for preview URL..."
+          echo "Preview URL: ${{ steps.firebase_preview.outputs.details_url }}"
+          npx wait-on ${{ steps.firebase_preview.outputs.details_url }}
+
+      # Run Cypress tests using that URL
+      - name: Run Cypress tests
+        run: npx cypress run
+        env:
+          CYPRESS_BASE_URL: ${{ steps.firebase_preview.outputs.details_url }}

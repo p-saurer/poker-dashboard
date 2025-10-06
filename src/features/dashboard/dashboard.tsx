@@ -1,3 +1,3 @@
 export function Dashboard() {
-	return <div>Hello from Dashboard</div>;
+	return <div data-testid="dashboard">Hello from Dashboard</div>;
 }

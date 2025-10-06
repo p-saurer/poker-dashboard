@@ -1,3 +1,3 @@
 export function PlayerList() {
-	return <div>Hello from PlayerList</div>;
+	return <div data-testid="player-list">Hello from PlayerList</div>;
 }
